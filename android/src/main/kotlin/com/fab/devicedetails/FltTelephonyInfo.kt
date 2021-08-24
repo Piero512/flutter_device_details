@@ -161,8 +161,11 @@ class FltTelephonyInfo {
         }
 
         //网络类型
-        resultMap["networkType"] = telephonyManager.networkType
-
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_PHONE_STATE) == PermissionChecker.PERMISSION_GRANTED ||
+            telephonyManager.hasCarrierPrivileges()) {
+            resultMap["networkType"] = telephonyManager.networkType
+        }
+        
         /**
          * Returns the alphabetic name of current registered operator.
          * <p>
